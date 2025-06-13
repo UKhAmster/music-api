@@ -14,7 +14,7 @@ class TrackOut(BaseModel):
 
 
 class ArtistOut(BaseModel):
-    id: int
+    id: Optional[int]
     name: str
     description_url: str
     photo_url: Optional[str]
@@ -42,7 +42,6 @@ class TrackOnly(BaseModel):
 
 
 class ArtistDetail(BaseModel):
-    id: int
     name: str
     description_url: str
     photo_url: Optional[str]
