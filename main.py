@@ -47,6 +47,7 @@ def search_music(query: str, db: Session = Depends(get_db)):
 
         artists_out = [
             ArtistOut(
+                id=artist.id,
                 name=artist.name,
                 description_url=artist.description_url,
                 photo_url=artist.photo_url
