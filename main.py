@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Path
 from sqlalchemy.orm import Session
 from database import SessionLocal
 from models import Artist, Track
@@ -63,12 +63,11 @@ def search_music(query: str, db: Session = Depends(get_db)):
 
 
 
-@app.get("/artist/{name}", response_model=ArtistDetail)
-def get_artist(name: str, db: Session = Depends(get_db)):
-    try:
-        query_like = f"%{name}%"
 
-        artist = db.query(Artist).filter(Artist.name.ilike(query_like)).first()
+@app.get("/artist/id/{artist_id}", response_model=ArtistDetail)
+def get_artist_by_id(artist_id: int = Path(...), db: Session = Depends(get_db)):
+    try:
+        artist = db.query(Artist).filter(Artist.id == artist_id).first()
         if artist is None:
             raise HTTPException(status_code=404, detail="Artist not found")
 
@@ -89,5 +88,5 @@ def get_artist(name: str, db: Session = Depends(get_db)):
         )
 
     except Exception as e:
-        print("❌ Ошибка в /artist/{name}:", e)
+        print("❌ Ошибка в /artist/id/{artist_id}:", e)
         raise HTTPException(status_code=500, detail=str(e))
