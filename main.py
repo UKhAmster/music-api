@@ -88,5 +88,5 @@ def get_artist_by_id(artist_id: int = Path(...), db: Session = Depends(get_db)):
         )
 
     except Exception as e:
-        print("❌ Ошибка в /artist/id/{artist_id}:", e)
+        print("❌ Ошибка в /artists/id/{artist_id}:", e)
         raise HTTPException(status_code=500, detail=str(e))
