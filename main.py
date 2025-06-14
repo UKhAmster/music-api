@@ -64,7 +64,7 @@ def search_music(query: str, db: Session = Depends(get_db)):
 
 
 
-@app.get("/artist/id/{artist_id}", response_model=ArtistDetail)
+@app.get("/artists/id/{artist_id}", response_model=ArtistDetail)
 def get_artist_by_id(artist_id: int = Path(...), db: Session = Depends(get_db)):
     try:
         artist = db.query(Artist).filter(Artist.id == artist_id).first()
